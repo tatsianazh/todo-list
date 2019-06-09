@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comments;
+use App\Models\Status;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,16 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::select("id", "name", "status_id")
+            ->orderBy("status_id", "ASC")
+            ->orderBy("created_at", "DESC")
+            ->withCount('comments')
+            ->get()
+            ->groupBy("status_id");
+
+//        dump($tasks);
+
+        return view('admin.tasks.index', compact('tasks'));
     }
 
     /**
@@ -24,7 +35,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $statuses = Status::all();
+        return view('admin.tasks.create', compact('statuses'));
     }
 
     /**
@@ -35,7 +47,11 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $task = new Task();
+        $task->fill($request->all());
+        $task->save();
+
+        return redirect()->route('admin.task.index');
     }
 
     /**
@@ -57,7 +73,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        $statuses = Status::all();
+        return view('admin.tasks.edit', compact('task', 'statuses'));
+
     }
 
     /**
@@ -69,7 +87,8 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $task->update($request->all());
+        return redirect()->route('admin.task.index');
     }
 
     /**

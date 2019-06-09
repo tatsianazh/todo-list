@@ -11,10 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/', 'TaskController@index')->name('index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
+    Route::get('/', function(){
+        return view('admin.dashboard');
+    })->name('dashboard');
+    Route::resource('task', 'TaskController');
+});
