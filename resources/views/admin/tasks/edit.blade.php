@@ -23,7 +23,7 @@
                     <select class=" form-control-label" name="status_id" id="status_id">
                         @foreach($statuses as $status)
                             <option value="{{$status->id}}"
-                                    {{--@if($status->id == $task->status->id) selected @endif--}}>
+                                    @if($status->id == $task->status->id) selected @endif>
                                 {{$status->name}}
                             </option>
                         @endforeach
@@ -52,7 +52,7 @@
                         <textarea class="form-control" name="comment" id="comment" rows="2"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
-                </div>               
+                </div>
 
             </form>
             <!-- /.box-header -->

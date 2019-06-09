@@ -12,7 +12,7 @@ class Task extends Model
         return $this->hasMany(Comments::class, 'task_id', 'id');
     }
 
-    public function statuses(){
+    public function status(){
         return $this->belongsTo(Status::class, 'status_id', 'id');
     }
 }
