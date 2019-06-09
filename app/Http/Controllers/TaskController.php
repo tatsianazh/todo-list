@@ -74,7 +74,12 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $statuses = Status::all();
-        return view('admin.tasks.edit', compact('task', 'statuses'));
+        $comments = Comments::select("comment")
+            ->where('task_id', $task->id)
+            ->get();
+        return view('admin.tasks.edit', compact('task','statuses', 'comments'));
+
+
 
     }
 

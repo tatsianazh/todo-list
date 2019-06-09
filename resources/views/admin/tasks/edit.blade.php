@@ -39,5 +39,40 @@
         </form>
     </div>
     </div>
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Комментарии к задаче</h3>
+            </div>
+            <form action="{{route('admin.comments.store', [$task->id])}}" method="post" role="form" novalidate="novalidate">
+                @csrf
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Добавить комментарий</label>
+                        <textarea class="form-control" name="comment" id="comment" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>               
+
+            </form>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th style="width: 10px"><i class="fa fa-fw fa-comment"></i></th>
+                        <th>Комментарий</th>
+                    </tr>
+                    @foreach($comments as $comment)
+                    <tr>
+                        <td><i class="fa fa-fw fa-comment-o"></i></td>
+                        <td>{{$comment->comment}}</td>
+                    </tr>
+                    @endforeach
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+
+    </div>
 
 @endsection

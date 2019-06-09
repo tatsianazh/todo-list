@@ -9,7 +9,7 @@ class Task extends Model
     protected $guarded = [];
 
     public function comments(){
-        return $this->hasMany(Comments::class, 'task_id');
+        return $this->hasMany(Comments::class, 'task_id', 'id');
     }
 
     public function statuses(){

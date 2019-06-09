@@ -27,4 +27,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function(){
         return view('admin.dashboard');
     })->name('dashboard');
     Route::resource('task', 'TaskController');
+    Route::post('admin/comments/{task_id}', 'CommentsController@store')->name('comments.store');
+
 });
